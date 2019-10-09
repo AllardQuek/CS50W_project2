@@ -5,4 +5,4 @@ This is an online messaging service using Flask, JavaScript and Socket.IO simila
 
 Users will be able to sign in with a display name, create channels (i.e. chatrooms) to communicate in, as well as see and join existing channels. Once a channel is selected, users will be able to send and receive messages with one another in real time.
 
-
+# TODO
