@@ -1,0 +1,3 @@
+Scripts and Links:
+- Order of links matter, the later ones will override the earlier ones, i.e. put any custom styles or scripts last
+- to use socketio, use script tag in html file and the type must be text/javascript not just javascript

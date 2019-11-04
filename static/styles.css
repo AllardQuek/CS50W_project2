@@ -1,0 +1,49 @@
+.navbar-brand {
+    font-size: 20px;
+    padding-top: 10px;
+}
+
+.navbar-nav>li>a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.navbar-nav>li>button {
+    padding-top: 10px;
+    font-size: 14px;
+    color: white;
+}
+
+.badge {
+    font-size: 16px;
+}
+
+.dropdown {
+    margin-right: 10px;
+}
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+
+#textarea {
+    width: 50%;
+    border: solid 2px orange;
+}
+
+form {
+    /* centers the text area, which is the child element */
+    text-align: center;
+}
+
+.buttonHolder {
+    text-align: center;
+}

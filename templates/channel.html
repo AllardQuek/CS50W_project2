@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    View Channel
+{% endblock %}
+
+{% block main %}
+
+    <h1 id="channel_name">{{ channel_name }}</h1>
+
+
+    <ul>
+        {% for message in channel_messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+
+    <form action="" id="send_message" class="form-group">
+        <textarea id="textarea" name="content" class="form-control" rows="8" placeholder="Message" required></textarea>
+
+        <div class="buttonHolder">
+            <button id="send_message" class="btn btn-info">Send</button>
+        </div>
+    </form>
+
+    <script>
+        document.getElementbyId('sendMessage').onclick = () => {
+                var display_name = localStorage.getItem('displayName')
+                var content = document.getElementById('textarea').value 
+                var datetime = new Date().toLocaleString();
+                var channel_name = document.getElementById('channel_name')
+
+                emit('send_message', {'display_name': display_name, 'content': content, 'datetime': datetime, 'channel_name': channel_name})
+                };
+    </script>
+{% endblock %}
