@@ -28,7 +28,7 @@ Channel List:
 
 Messages View: Once a channel is selected, the user should 
 - see any messages that have already been sent in that channel, up to a maximum of 100 messages. #
-- your app should only store the 100 most recent messages per channel in server-side memory.
+- your app should only store the 100 most recent messages per channel in server-side memory. #
 Sending Messages: Once in a channel, users should be able to 
 - send text messages to others the channel. 
 - when a user sends a message, their display name and the timestamp of the message should be associated with the message. 

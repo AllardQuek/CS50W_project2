@@ -1,3 +1,62 @@
 Scripts and Links:
 - Order of links matter, the later ones will override the earlier ones, i.e. put any custom styles or scripts last
 - to use socketio, use script tag in html file and the type must be text/javascript not just javascript
+
+
+
+
+
+# # if user submits a message to channel
+    # if request.method == "POST":
+    #     if not request.form.get("content"):
+    #         return render_template("error.html", message="Please enter a message")
+        
+    #     # if stored maximum of 100 messages, remove first/oldest message
+    #     if len(messages[channel_name]) >= 100:
+    #         messages[channel_name].pop(0)
+
+    #     # append new message
+    #     content = request.form.get("content")
+    #     message = dict()
+    #     message['content'] = content
+    #     message['timestamp'] = datetime.datetime.now()
+    #     # message['user'] = driver.execute_script("window.localStorage.getItem('key');");
+
+
+
+
+
+// function setLink(channelName) {
+    //     channelName = channel.innerHTML;
+    //     channel.setAttribute('href', "{{ url_for('view_channel', channel_name=channelName)")
+    // }
+
+
+
+    //newChannel = document.querySelector('.dropdown-item').cloneNode()
+        // newChannel = $('.dropdown-item').first().clone();
+        // console.log("BEFORE", newChannel);
+        // newChannel.innerHTML = channel_name;
+        // console.log(newChannel);
+
+    // document.getElementById('createChannel').onclick = () => {
+    //     channelName = prompt('Channel name:');
+
+    //     if (channels.has(channelName)) {
+    //         alert("Channel name already exists! Please pick another name.");
+    //     }
+
+    //     channels.add(channelName);
+    // };
+
+
+
+    // Each button should emit a "submit vote" event
+    // document.querySelectorAll('.dropdown-item').forEach(channel => {
+    //     channel.onclick = () => {
+    //         channelName = channel.innerHTML;
+    //         channel.setAttribute('href', "{{ url_for('view_channel', channel_name=channelName)")
+    //         const selection = button.dataset.vote;
+    //         socket.emit('submit vote', {'selection': selection});
+    //     };
+    // });

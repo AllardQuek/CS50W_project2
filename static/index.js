@@ -30,45 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("Sorry this channel name already exists!");
         });
 
-    socket.on('success_redirect', function (data) {
+    socket.on('success_redirect', (data) => {
         window.location = data.url;
         alert("Successfully created channel!");
         });
-    
+
+    socket.on('message_sent', () => {
+        console.log("DOING GOOD");
+        });
+        
     });
-
-    
-    // function setLink(channelName) {
-    //     channelName = channel.innerHTML;
-    //     channel.setAttribute('href', "{{ url_for('view_channel', channel_name=channelName)")
-    // }
-
-
-
-    //newChannel = document.querySelector('.dropdown-item').cloneNode()
-        // newChannel = $('.dropdown-item').first().clone();
-        // console.log("BEFORE", newChannel);
-        // newChannel.innerHTML = channel_name;
-        // console.log(newChannel);
-
-    // document.getElementById('createChannel').onclick = () => {
-    //     channelName = prompt('Channel name:');
-
-    //     if (channels.has(channelName)) {
-    //         alert("Channel name already exists! Please pick another name.");
-    //     }
-
-    //     channels.add(channelName);
-    // };
-
-
-
-    // Each button should emit a "submit vote" event
-    // document.querySelectorAll('.dropdown-item').forEach(channel => {
-    //     channel.onclick = () => {
-    //         channelName = channel.innerHTML;
-    //         channel.setAttribute('href', "{{ url_for('view_channel', channel_name=channelName)")
-    //         const selection = button.dataset.vote;
-    //         socket.emit('submit vote', {'selection': selection});
-    //     };
-    // });

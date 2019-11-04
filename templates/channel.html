@@ -15,7 +15,7 @@
         {% endfor %}
     </ul>
 
-    <form action="" id="send_message" class="form-group">
+    <form onsubmit="return false;" class="form-group">
         <textarea id="textarea" name="content" class="form-control" rows="8" placeholder="Message" required></textarea>
 
         <div class="buttonHolder">
@@ -24,13 +24,22 @@
     </form>
 
     <script>
-        document.getElementbyId('sendMessage').onclick = () => {
-                var display_name = localStorage.getItem('displayName')
-                var content = document.getElementById('textarea').value 
-                var datetime = new Date().toLocaleString();
-                var channel_name = document.getElementById('channel_name')
+        document.addEventListener('DOMContentLoaded', () => {
 
-                emit('send_message', {'display_name': display_name, 'content': content, 'datetime': datetime, 'channel_name': channel_name})
-                };
+            var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+
+            socket.on('connect', () => {
+                console.log("GOOD1")
+                document.getElementById('send_message').onclick = () => {
+                        var display_name = localStorage.getItem('displayName');
+                        var content = document.getElementById('textarea').value;
+                        var datetime = new Date().toLocaleString();    // https://stackoverflow.com/questions/10211145/getting-current-date-and-time-in-javascript
+                        var channel_name = document.getElementById('channel_name').innerHTML;
+
+                        socket.emit('send_message', {'display_name': display_name, 'content': content, 'datetime': datetime, 'channel_name': channel_name});
+                        console.log("GOOD2")
+                    };
+                });
+            });
     </script>
 {% endblock %}
