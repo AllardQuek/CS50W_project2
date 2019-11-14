@@ -8,6 +8,14 @@
 
     <h1 id="channel_name">{{ channel_name }}</h1>
 
+    <form onsubmit="return false;" class="form-group">
+        <textarea id="textarea" name="content" class="form-control" rows="8" placeholder="Message" required></textarea>
+
+        <div class="buttonHolder">
+            <button id="send_message" class="btn btn-info">Send</button>
+        </div>
+    </form>
+
     <div class="list-group">
 
         {% for message in channel_messages %}
@@ -21,13 +29,7 @@
         
     </div>
 
-    <form onsubmit="return false;" class="form-group">
-        <textarea id="textarea" name="content" class="form-control" rows="8" placeholder="Message" required></textarea>
-
-        <div class="buttonHolder">
-            <button id="send_message" class="btn btn-info">Send</button>
-        </div>
-    </form>
+    
 
     <script src="/static/channel.js"></script>
 {% endblock %}

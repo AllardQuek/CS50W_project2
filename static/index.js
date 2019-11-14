@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     socket.on('message_sent', (data) => {
         console.log(data.number_of_messages)
-        console.log("STARTING...")
         var header = `${data.message.display_name} (${data.message.datetime})`
 
         if (data.number_of_messages == 0) {
@@ -64,21 +63,16 @@ document.addEventListener('DOMContentLoaded', () => {
             $(a).append($(p));
             a.style.color = "white";
 
-            // insert block into channel.html
+            // insert block into channel.html at the bottom; for most recent messages at the bottom, use append()
             $(".list-group").append($(a));
-
-            console.log("...EVERYTHING OK?");
             return;
         }
         
-        // clone message to top
+        // clone message to bottom
         // The .clone() method performs a deep copy of the set of matched elements, meaning that it 
         // copies the matched elements as well as all of their descendant elements and text nodes.
-        console.log($(".list-group-item:first").clone());
         $(".list-group-item:first").clone().appendTo(".list-group");
-        document.querySelector('h5').innerHTML = header;
-        document.querySelector('p').innerHTML = data.message.content;
-        
-        console.log("DOING GOOD");
+        $("h5").last().html(header);
+        $("p").last().html(data.message.content);
         });
     });
