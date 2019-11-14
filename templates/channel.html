@@ -8,12 +8,18 @@
 
     <h1 id="channel_name">{{ channel_name }}</h1>
 
+    <div class="list-group">
 
-    <ul>
         {% for message in channel_messages %}
-        <li>{{ message }}</li>
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ message['display_name'] }} ({{ message['datetime'] }})</h5>
+          </div>
+          <p class="mb-1">{{ message['content'] }}</p>
+        </a>
         {% endfor %}
-    </ul>
+        
+    </div>
 
     <form onsubmit="return false;" class="form-group">
         <textarea id="textarea" name="content" class="form-control" rows="8" placeholder="Message" required></textarea>
@@ -23,23 +29,5 @@
         </div>
     </form>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-
-            var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-
-            socket.on('connect', () => {
-                console.log("GOOD1")
-                document.getElementById('send_message').onclick = () => {
-                        var display_name = localStorage.getItem('displayName');
-                        var content = document.getElementById('textarea').value;
-                        var datetime = new Date().toLocaleString();    // https://stackoverflow.com/questions/10211145/getting-current-date-and-time-in-javascript
-                        var channel_name = document.getElementById('channel_name').innerHTML;
-
-                        socket.emit('send_message', {'display_name': display_name, 'content': content, 'datetime': datetime, 'channel_name': channel_name});
-                        console.log("GOOD2")
-                    };
-                });
-            });
-    </script>
+    <script src="/static/channel.js"></script>
 {% endblock %}

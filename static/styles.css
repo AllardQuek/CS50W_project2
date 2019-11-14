@@ -24,8 +24,7 @@
     margin-right: 10px;
 }
 
-main .form-control
-{
+main .form-control {
     /* center form controls */
     display: inline-block;
 
@@ -33,17 +32,15 @@ main .form-control
     width: auto;
 }
 
-
 #textarea {
     width: 50%;
     border: solid 2px orange;
 }
 
-form {
-    /* centers the text area, which is the child element */
+/* form, .buttonHolder, #channel_name {
     text-align: center;
-}
+} */
 
-.buttonHolder {
+main {
     text-align: center;
 }

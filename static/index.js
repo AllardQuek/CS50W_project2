@@ -1,4 +1,15 @@
-// localStorage.removeItem('displayName')
+// Connect to websocket
+var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+
+// When connected, if user was on a channel previously redirect him to url for viewchannel() route, else return index.html
+socket.on('connect', () => {
+    socket.on('check_previous_channel', () => {
+        if (localStorage.getItem('previousChannel')) {
+            var previous_channel = localStorage.getItem('previousChannel');
+            window.location = `/channel/${previous_channel}`;
+        }
+    });
+});
 
 // if user hasn't chosen a display name, prompt user and store it locally
 if (!localStorage.getItem('displayName')) {
@@ -11,21 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // render chosen name at top right of window
     document.getElementById('displayName').innerHTML = localStorage.getItem('displayName');
 
-    // Connect to websocket
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+    // configure buttons
+    document.getElementById('createChannel').onclick = () => {
+        var channel_name = prompt('Channel name:');
+        if (channel_name !== '') {
+            socket.emit('create_channel', {'channel_name': channel_name});
+        };
+    };
 
-    // When connected, configure buttons
-    socket.on('connect', () => {
-
-        // Each button should emit a "create channel" event
-        document.getElementById('createChannel').onclick = () => {
-                var channel_name = prompt('Channel name:');
-                socket.emit('create_channel', {'channel_name': channel_name});
-                console.log("EMITTED");
-            };
-        });
-
-    
+    // socket events to be received
     socket.on('existing channel', () => {
         alert("Sorry this channel name already exists!");
         });
@@ -35,8 +40,45 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("Successfully created channel!");
         });
 
-    socket.on('message_sent', () => {
+    socket.on('message_sent', (data) => {
+        console.log(data.number_of_messages)
+        console.log("STARTING...")
+        var header = `${data.message.display_name} (${data.message.datetime})`
+
+        if (data.number_of_messages == 0) {
+            // create new html elements, factor out?
+            var a = document.createElement('a');
+            a.className = "list-group-item list-group-item-action flex-column align-items-start active";
+            var div = document.createElement('div');
+            div.className = "d-flex w-100 justify-content-between";
+            var h5 = document.createElement('h5');
+            h5.className = "mb-1"
+            h5.innerHTML = `${data.message.display_name} (${data.message.datetime})`;
+            var p = document.createElement('p');
+            p.className = "mb-1";
+            p.innerHTML = data.message.content;
+
+            // order new elements in a block
+            $(div).append($(h5));
+            $(a).append($(div));
+            $(a).append($(p));
+            a.style.color = "white";
+
+            // insert block into channel.html
+            $(".list-group").append($(a));
+
+            console.log("...EVERYTHING OK?");
+            return;
+        }
+        
+        // clone message to top
+        // The .clone() method performs a deep copy of the set of matched elements, meaning that it 
+        // copies the matched elements as well as all of their descendant elements and text nodes.
+        console.log($(".list-group-item:first").clone());
+        $(".list-group-item:first").clone().appendTo(".list-group");
+        document.querySelector('h5').innerHTML = header;
+        document.querySelector('p').innerHTML = data.message.content;
+        
         console.log("DOING GOOD");
         });
-        
     });
