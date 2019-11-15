@@ -1,3 +1,9 @@
+// if user hasn't chosen a display name, prompt user and store it locally
+if (!localStorage.getItem('displayName')) {
+    var displayName = prompt("Please provide a display name.");
+    localStorage.setItem('displayName', displayName);
+}
+
 // Connect to websocket
 var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
@@ -10,12 +16,6 @@ socket.on('connect', () => {
         }
     });
 });
-
-// if user hasn't chosen a display name, prompt user and store it locally
-if (!localStorage.getItem('displayName')) {
-    var displayName = prompt("Please provide a display name.");
-    localStorage.setItem('displayName', displayName);
-}
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -41,37 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     socket.on('message_sent', (data) => {
-        console.log(data.number_of_messages)
-        var header = `${data.message.display_name} (${data.message.datetime})`
-
+        // if first message sent
         if (data.number_of_messages == 0) {
-            // create new html elements, factor out?
-            var a = document.createElement('a');
-            a.className = "list-group-item list-group-item-action flex-column align-items-start active";
-            var div = document.createElement('div');
-            div.className = "d-flex w-100 justify-content-between";
-            var h5 = document.createElement('h5');
-            h5.className = "mb-1"
-            h5.innerHTML = `${data.message.display_name} (${data.message.datetime})`;
-            var p = document.createElement('p');
-            p.className = "mb-1";
-            p.innerHTML = data.message.content;
-
-            // order new elements in a block
-            $(div).append($(h5));
-            $(a).append($(div));
-            $(a).append($(p));
-            a.style.color = "white";
-
-            // insert block into channel.html at the bottom; for most recent messages at the bottom, use append()
-            $(".list-group").append($(a));
+            insertMessageInHTML(data);
             return;
         }
-        
-        // clone message to bottom
-        $(".list-group-item:first").clone().appendTo(".list-group");
-        $("h5").last().html(header);
-        $("p").last().html(data.message.content);
+        cloneMessageToBottom(data);
         });
 
     // Personal Touch: Allow user to change display name
@@ -81,3 +56,36 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('displayName').innerHTML = localStorage.getItem('displayName');
     }
 });
+
+
+function insertMessageInHTML(data) {
+    // create new html elements with classes
+    var a = document.createElement('a');
+    a.className = "list-group-item list-group-item-action flex-column align-items-start active";
+    var div = document.createElement('div');
+    div.className = "d-flex w-100 justify-content-between";
+    var h5 = document.createElement('h5');
+    h5.className = "mb-1"
+    var p = document.createElement('p');
+    p.className = "mb-1";
+
+    // set message details as innerHTML
+    h5.innerHTML = `${data.message.display_name} (${data.message.datetime})`;
+    p.innerHTML = data.message.content;
+    a.style.color = "white";
+
+    // order elements
+    $(div).append($(h5));
+    $(a).append($(div));
+    $(a).append($(p));
+
+    // insert block into channel.html at the bottom; for most recent messages at the bottom, use append()
+    $(".list-group").append($(a));
+}
+
+function cloneMessageToBottom(data) {
+    // else at least 1 message, clone existing message to bottom and update content
+    $(".list-group-item:first").clone().appendTo(".list-group");
+    $("h5").last().html(`${data.message.display_name} (${data.message.datetime})`);
+    $("p").last().html(data.message.content);    
+}
