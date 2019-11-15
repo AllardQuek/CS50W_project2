@@ -40,7 +40,7 @@ Personal Touch: Add at least one additional feature to your chat application pos
 - deleting one’s own Messages (button, emit delete and remove message elements, update message list server-side) 
 - use attachments (file uploads) as messages
 - private messaging between two users.
-** allow changing displayname (use database if ensuring displayname is unique )
+** allow changing displayname (use database if ensuring displayname is unique ) #
 
 In README.md, include 
 - a short writeup describing your project
