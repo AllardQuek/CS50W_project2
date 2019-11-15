@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // render chosen name at top right of window
     document.getElementById('displayName').innerHTML = localStorage.getItem('displayName');
 
-    // configure buttons
+    // configure create channel button
     document.getElementById('createChannel').onclick = () => {
         var channel_name = prompt('Channel name:');
         if (channel_name !== '') {
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     };
 
-    // socket events to be received
+    // SOCKET EVENTS
     socket.on('existing channel', () => {
         alert("Sorry this channel name already exists!");
         });
@@ -69,17 +69,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // clone message to bottom
-        // The .clone() method performs a deep copy of the set of matched elements, meaning that it 
-        // copies the matched elements as well as all of their descendant elements and text nodes.
         $(".list-group-item:first").clone().appendTo(".list-group");
         $("h5").last().html(header);
         $("p").last().html(data.message.content);
         });
 
-        // Personal Touch: Allow user to change display name
-        document.getElementById('displayName').onclick = () => {
-            displayName = prompt('Change your display name to:');
-            localStorage.setItem('displayName', displayName);
-            document.getElementById('displayName').innerHTML = localStorage.getItem('displayName');
-        }
-    });
+    // Personal Touch: Allow user to change display name
+    document.getElementById('displayName').onclick = () => {
+        displayName = prompt('Change your display name to:');
+        localStorage.setItem('displayName', displayName);
+        document.getElementById('displayName').innerHTML = localStorage.getItem('displayName');
+    }
+});
