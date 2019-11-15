@@ -23,7 +23,7 @@ def index():
 def view_channel(channel_name):
     return render_template("channel.html", channels=channels, channel_name=channel_name, channel_messages=messages[channel_name])
 
-
+# SOCKET EVENTS
 @socketio.on("create_channel")
 def create(data):
 
