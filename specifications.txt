@@ -37,9 +37,10 @@ Sending Messages: Once in a channel, users should be able to
 
 Remembering the Channel: If a user is on a channel page, closes the web browser window, and goes back to your web application, your application should remember what channel the user was on previously and take the user back to that channel. #
 Personal Touch: Add at least one additional feature to your chat application possibilities include supporting
-- deleting one’s own Messages (button, emit delete and remove message elements, update message list server-side)    ##
+- deleting one’s own Messages (button, emit delete and remove message elements, update message list server-side) 
 - use attachments (file uploads) as messages
 - private messaging between two users.
+** allow changing displayname (use database if ensuring displayname is unique )
 
 In README.md, include 
 - a short writeup describing your project

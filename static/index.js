@@ -75,4 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
         $("h5").last().html(header);
         $("p").last().html(data.message.content);
         });
+
+        // Personal Touch: Allow user to change display name
+        document.getElementById('displayName').onclick = () => {
+            displayName = prompt('Change your display name to:');
+            localStorage.setItem('displayName', displayName);
+            document.getElementById('displayName').innerHTML = localStorage.getItem('displayName');
+        }
     });
