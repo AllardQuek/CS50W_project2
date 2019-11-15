@@ -17,7 +17,6 @@
     </form>
 
     <div class="list-group">
-
         {% for message in channel_messages %}
         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
           <div class="d-flex w-100 justify-content-between">
@@ -26,10 +25,7 @@
           <p class="mb-1">{{ message['content'] }}</p>
         </a>
         {% endfor %}
-        
     </div>
-
-    
 
     <script src="/static/channel.js"></script>
 {% endblock %}
