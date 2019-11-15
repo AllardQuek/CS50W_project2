@@ -1,32 +1,23 @@
 CHALLENGES:
-- 
-
+- need to know when to use server vs client to accomplish tasks; think of keywords and requirements
+- testing app is difficult! be careful of localStorage variables, may need to removeItem before running app
+- debugging; commit changes regularly asthe more changes made without testing the harder to debug
 
 
 TAKEAWAYS:
-
-- need to know when to use server vs client to accomplish tasks; think of keywords and requirements
-- be careful of localStorage variables, may need to removeItem before running app
+- order of links matter, the later ones will override the earlier ones, i.e. put any custom styles or scripts last
+- to use socketio, use script tag in html file and the type must be text/javascript not just javascript
 - scoketio.emit() vs emit(): When you want to emit from a regular route you must use socketio.emit(), only socket handlers have the socketio context necessary to call the plain emit().
 - JS datetime: https://stackoverflow.com/questions/10211145/getting-current-date-and-time-in-javascript
 - .clone() method performs a deep copy of the set of matched elements, meaning that it copies the matched elements as well as all of their descendant elements and text nodes.
 - difference between <link href="#" rel="shortcut icon" > and <link href="/" rel="shortcut icon">
-  caused page to endlessly reload when creating new channel
-
-
-
-
-Scripts and Links
-- Order of links matter, the later ones will override the earlier ones, i.e. put any custom styles or scripts last
-- to use socketio, use script tag in html file and the type must be text/javascript not just javascript
-
+  somehow caused page to endlessly reload when creating new channel
 
 
 IMRPOVEMENTS:
 - naming of global variables to be more precise
 - UI; front end aesthetics of webpage; showing empty list of channels, channel messages and textarea
-- page to be responsive to resizing
-
+- page to be responsive to resizing, issue could be icons disrupting the mobile menu
 
 
 JUNK CODE:
