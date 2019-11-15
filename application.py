@@ -36,8 +36,9 @@ def create(data):
         channels.append(channel_name)
         messages[channel_name]= []
 
-        # redirect to the channel's page
-        emit('success_redirect', {'url': url_for('view_channel', channel_name=channel_name)}, broadcast=True)
+        # redirect only the creator to the channel's page (thus broadcast not set to True)
+        # other users must refresh their page to see the new channel created
+        emit('success_redirect', {'url': url_for('view_channel', channel_name=channel_name)})
 
 @socketio.on("send_message")
 def send(data):
