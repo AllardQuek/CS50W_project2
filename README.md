@@ -1,64 +1,12 @@
-import os
-import requests
+# CS50W Project 2: Flack
+Web Programming with Python and JavaScript
 
-from flask import Flask, jsonify, render_template, request, redirect, flash, url_for
-from flask_socketio import SocketIO, emit
-from datetime import datetime
+This is an online messaging service using Flask, JavaScript and Socket.IO similar in spirit to [Slack.](https://slack.com) Built the web UI with Javascript running code server-side and Socket.IO communicating between clients and servers.
 
-app = Flask(__name__)
-app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
-socketio = SocketIO(app)
+Users will be able to sign in with a display name, create channels (i.e. chatrooms) to communicate in, as well as see and join existing channels. Once a channel is selected, users will be able to send and receive messages with one another in real time.
 
-channels = list()   
-messages = dict()   # messages is a dictionary where key: channelname, value: list of channel's messages (list of dictionaries), 
-                    # where each message is a dictionary storing the message content, displayname and timstamp
-
-@app.route("/")
-def index():
-    # if user was previously on a channel, bring him back to it, else return index.html
-    socketio.emit('check_previous_channel', broadcast=True)
-    return render_template("index.html", channels=channels)
-
-@app.route("/channel/<channel_name>", methods=["GET", "POST"])
-def view_channel(channel_name):
-    return render_template("channel.html", channels=channels, channel_name=channel_name, channel_messages=messages[channel_name])
-
-
-@socketio.on("create_channel")
-def create(data):
-
-    channel_name = data["channel_name"]
-    if channel_name in channels:
-        emit("existing channel", broadcast=True)
-
-    else:
-        # if channel name not taken, add to channels list and initialise a list to store this channel's messages
-        channels.append(channel_name)
-        messages[channel_name]= []
-
-        # redirect to the channel's page
-        emit('success_redirect', {'url': url_for('view_channel', channel_name=channel_name)}, broadcast=True)
-
-@socketio.on("send_message")
-def send(data):
-    
-    channel_name = data["channel_name"]
-    number_of_messages = len(messages[channel_name])
-
-    # if stored maximum of 100 messages, remove first/oldest message
-    if number_of_messages >= 100:
-        messages[channel_name].pop(0)
-
-    # create a dictionary to store the details of the message 
-    message = dict()
-    message["content"] = data["content"]
-    message["display_name"] = data["display_name"]
-    message["datetime"] = data["datetime"]
-
-    # append message to the channel's list of messages stored server-side
-    messages[channel_name].append(message)
-    emit("message_sent", {'message': message, 'number_of_messages':number_of_messages}, broadcast=True)
-    
-# allows running of flask app via CLI using 'python application.py' without setting FLASK_APP variable
-if __name__ == "__main__":
-    socketio.run(app)
+# TODO
+- a short writeup describing your project
+- what’s contained in each file
+- (optionally) any other additional information the staff should know about your project
+- description of your personal touch and what you chose to add to the project.
