@@ -9,14 +9,14 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
 
-channels = list()
-messages = dict()   # messages will be a dictionary containing each channel's lists of messages, 
-                    # where each message is a dictionary storing the message, displayname and timstamp
+channels = list()   
+messages = dict()   # messages is a dictionary where key: channelname, value: list of channel's messages (list of dictionaries), 
+                    # where each message is a dictionary storing the message content, displayname and timstamp
 
 @app.route("/")
 def index():
-    socketio.emit('check_previous_channel', broadcast=True)     # When you want to emit from a regular route you have to use socketio.emit(), 
-                                                                # only socket handlers have the socketio context necessary to call the plain emit().
+    # if user was previously on a channel, bring him back to it, else return index.html
+    socketio.emit('check_previous_channel', broadcast=True)
     return render_template("index.html", channels=channels)
 
 @app.route("/channel/<channel_name>", methods=["GET", "POST"])
@@ -41,7 +41,7 @@ def create(data):
 
 @socketio.on("send_message")
 def send(data):
-
+    
     channel_name = data["channel_name"]
     number_of_messages = len(messages[channel_name])
 
@@ -57,10 +57,8 @@ def send(data):
 
     # append message to the channel's list of messages stored server-side
     messages[channel_name].append(message)
-
     emit("message_sent", {'message': message, 'number_of_messages':number_of_messages}, broadcast=True)
-
-
+    
 # allows running of flask app via CLI using 'python application.py' without setting FLASK_APP variable
 if __name__ == "__main__":
     socketio.run(app)

@@ -2,9 +2,11 @@
 
 <html lang="en">
     <head>
+        <!-- required meta tags for page to be responsive -->
         <meta charset="utf-8">    
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
+
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-mtS696VnV9qeIoC8w/PrPoRzJ5gwydRVn0oQ9b+RJOPxE1Z1jXuuJcyeNxvNZhdx" crossorigin="anonymous">
         <link href="#" rel="shortcut icon" >
@@ -30,7 +32,6 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active dropdown">
                   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Channels</a>
-                  
                   {% if channels != [] %}
                   <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
                     {% for channel in channels %}
@@ -38,7 +39,6 @@
                     {% endfor %}
                   </div>
                   {% endif %}
-
                 </li>
 
                 <li class="nav-item active">
@@ -52,17 +52,13 @@
               <span class="glyphicon glyphicon-user"></span> 
               <span id="displayName" class="badge badge-pill badge-success">User</span>
             </a>
-          
           </div>
         </nav>        
         
-
         <main class="container p-5">
             {% block main %}{% endblock %}
         </main>
 
         <footer class="small text-center text-muted">Allard 2019</footer>
     </body>
-
-    
 </html>
