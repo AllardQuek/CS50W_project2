@@ -18,7 +18,9 @@ IMRPOVEMENTS:
 - naming of global variables to be more precise
 - UI; front end aesthetics of webpage; showing empty list of channels, channel messages and textarea
 - page to be responsive to resizing, issue could be icons disrupting the mobile menu
-
+- more useful details on home page (index.html) rather than just an almost empty page
+- channel page will display all messages at once which may require a lot of scrolling, especially if limit was not set to 100; use JS to implement a 'load more' functionality
+- JS templating library could be used to display first message sent rather than creating elements
 
 JUNK CODE:
 # # if user submits a message to channel
