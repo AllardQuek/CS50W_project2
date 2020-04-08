@@ -1,3 +1,6 @@
+// localStorage.removeItem('previousChannel');  RUN THESE IN BROWSER TO RESET PREVIOUS CHANNEL
+// localStorage.removeItem('displayName');
+
 // if user hasn't chosen a display name, prompt user and store it locally
 if (!localStorage.getItem('displayName')) {
     var displayName = prompt("Please provide a display name.");
